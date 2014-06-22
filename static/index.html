@@ -7,44 +7,60 @@
 
     <title>flatchat</title>
   
-    <link
-    href='//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'
-    rel='stylesheet' type='text/css'>
+    <link href='//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link href="/style/style.css" rel='stylesheet' type='text/css'>
 
     <link rel="shortcut icon" href="http://assets.pudo.org/img/favicon.ico">
   </head>
   <body>
-    <header class="container">
+    <div id="page" class="container">
+      <!--
       <h1>FlatChat</h1>
       <i>Because the world needed another chat tool</i>
-    </header>
-
-    <div class="container">
       {{numMessages}}
-      <ul>
-        <li ng-repeat="message in messages">
-          <label>{{message.author}}</label>: {{message.text}}
-        </li>
-      </ul>
+
+      -->
+      <div class="messages panel panel-default">
+        <div class="panel-heading">
+          <strong>flatchat.txt</strong>
+          <div class="pull-right">{{numMessages}} messages</div>
+        </div>
+        <div class="panel-body">
+          <div class="message row" ng-repeat="message in messages"
+              ng-class="{'mine': message.mine}">
+            <div class="col-sm-3">
+              <span class="timestamp">{{message.ts}}</span>
+              <label class="author" style="color: {{message.color}};">
+                {{message.author}}
+              </label>:
+            </div>
+            <div class="col-sm-9">{{message.text}}</div>
+          </div>
+        </div>
+      </div>
 
       <div class="author" ng-hide="hasAuthor">
-        <form ng-submit="setAuthor()">
+        <form ng-submit="setAuthor()" role="form" class="form-inline">
           <label for="authorName">Author:</label>
-          <input type="text" ng-model="authorName" id="authorName">
-          <input type="submit" value="Save">
+          <input type="text" ng-model="authorName" id="authorName"
+            class="form-control">
+          <input type="submit" value="Save" class="btn btn-success">
         </form>
       </div>
       <div class="message" ng-show="hasAuthor">
-        <form ng-submit="sendMessage()">
-          <label for="newMessage">Type your message:</label>
-          <input type="text" ng-model="newMessage" id="new-message">
-          <input type="submit" value="Send">
+        <form ng-submit="sendMessage()" role="form" class="form-inline">
+          <div class="input-group">
+            <span class="input-group-addon">{{authorName}}:</span>
+            <input type="text" ng-model="newMessage" id="new-message"
+            class="form-control">
+          </div>
         </form>
       </div>
     </div>
-
+  
+    <script
+src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular.min.js"></script>
     <script src="https://code.angularjs.org/1.3.0-beta.13/angular-route.min.js"></script>
     <script type="text/javascript" src="https://code.angularjs.org/1.2.18/angular-cookies.min.js"></script>

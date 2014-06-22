@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 messages.init();
 
 app.get('/messages', function(req, res) {
-  messages.traverse(25, 0, function(results, total) {
+  messages.traverse(15, 0, function(results, total) {
     async.map(results, messages.read, function(err, results) {
       var data = {'results': results, 'total': total};
       res.jsonp(data);
