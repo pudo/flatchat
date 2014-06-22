@@ -24,6 +24,31 @@ var nameColor = function(name) {
   return COLORS[col];
 };
 
+var notify = function(msg) {
+  var sendMessage,
+      browserNotify;
+
+  browserNotify = function(msg) {
+    return new Notification(msg);
+  }
+  if (!("Notification" in window)) {
+    return false;
+  }
+  if (Notification.permission === "granted") {
+    notification = browserNotify(msg);
+  } else {
+    Notification.requestPermission(function (permission) {
+      if(!('permission' in Notification)) {
+        Notification.permission = permission;
+      }
+      if (permission === "granted") {
+        notification = browserNotify(msg);
+      }
+    });
+  }
+  return notification;
+}
+
 flatchat.controller('MessagesCtrl', function ($scope, $interval, $http, $cookies) {
   $scope.messages = [];
   $scope.hasAuthor = false;
@@ -61,6 +86,7 @@ flatchat.controller('MessagesCtrl', function ($scope, $interval, $http, $cookies
   }
 
   $interval(function() {
+    var oldMessagesNum = $scope.numMessages;
     $http.get('/messages').then(function(res) {
       $scope.messages = res.data.results.reverse();
       $scope.messages.forEach(function(m) {
@@ -70,6 +96,11 @@ flatchat.controller('MessagesCtrl', function ($scope, $interval, $http, $cookies
         m.yo = m.text.match(/^ *yo[?!.]? *$/gi);
       });
       $scope.numMessages = res.data.total;
+      if (oldMessagesNum < $scope.numMessages) {
+        if ($scope.messages[$scope.messages.length - 1].mine === false) {
+          notify('You have a new message from ' + 'pudo');
+        }
+      }
     });
   }, 200);
 
