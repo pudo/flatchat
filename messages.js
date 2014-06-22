@@ -121,3 +121,4 @@ exports.read = function(path, callback) {
   });
 }
 
+exports.init();
