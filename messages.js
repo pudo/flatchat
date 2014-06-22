@@ -136,5 +136,7 @@ traverse(3, 2, function(files, total) {
   });
 });
 
+exports.init = init;
+
 
 
