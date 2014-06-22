@@ -16,7 +16,7 @@ var SEPARATOR = '-',
     MSG_PATH = null;
 
 
-var init = function() {
+exports.init = function() {
   if (_.isUndefined(DATA_PATH)) {
     console.log("You haven't set a DATA_PATH environment variable!");
   }
@@ -56,7 +56,7 @@ var generateId = function() {
 };
 
 
-var idToPath = function(id) {
+exports.idToPath = function(id) {
   var elements = id.split(SEPARATOR),
       path = MSG_PATH + '';
   elements.forEach(function(e, i) {
@@ -73,7 +73,7 @@ var idToPath = function(id) {
 };
 
 
-var traverse = function(limit, offset, callback) {
+exports.traverse = function(limit, offset, callback) {
   var results = [],
       skipped = 0,
       total = 0;
@@ -101,9 +101,9 @@ var traverse = function(limit, offset, callback) {
 };
 
 
-var create = function(data, callback) {
+exports.create = function(data, callback) {
   var id = generateId(),
-      path = idToPath(id);
+      path = exports.idToPath(id);
 
   data.id = id;
   fs.writeFile(path, yaml.dump(data), function(err, data) {
@@ -114,29 +114,10 @@ var create = function(data, callback) {
 };
 
 
-var readYaml = function(path, callback) {
+exports.read = function(path, callback) {
   fs.readFile(path, function(err, data) {
     var obj = yaml.load(data + '');
     callback(err, obj); 
   });
 }
-
-
-init();
-create({'text': 'Hello World'});
-create({'text': 'Hello World'});
-//create({'text': 'Hello World'});
-//create({'text': 'Hello World'});
-//create({'text': 'Hello World'});
-
-traverse(3, 2, function(files, total) {
-  console.log(total);
-  async.map(files, readYaml, function(err, results) {
-    console.log(results);
-  });
-});
-
-exports.init = init;
-
-
 
