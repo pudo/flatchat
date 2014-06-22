@@ -1,7 +1,7 @@
 {
   "name": "flatchat",
   "version": "0.0.1",
-  "main": "app.json",
+  "main": "app.js",
   "repository" :
   { 
     "type" : "git", 
@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "express": "*",
-    "yamljs": "*"
+    "yamljs": "*",
+    "underscore": "*"
   }
 }
