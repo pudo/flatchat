@@ -24,12 +24,21 @@ body {
 }
 
 #page .message {
-  margin: 0.2em 0 0.2em 0;
+  m-argin: 0.2em 0 0.2em 0;
   padding: 0.2em 0.2em 0.2em 0.2em;
 }
 
 #page .message.mine {
   background-color: #ecf0f1;
+}
+
+#page .message.yo {
+  font-size: 1.3em;
+  background-color: purple;
+  color: white;
+}
+#page .message.yo .timestamp, #page .message.yo .author {
+  color: white !important;
 }
 
 #page .timestamp {
@@ -39,15 +48,6 @@ body {
 
 #page label.author {
   display: inline-block;
-}
-
-#page ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-#page li {
-  margin: 0.5em 0 0 0;
 }
 
 footer {

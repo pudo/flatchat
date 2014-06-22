@@ -55,7 +55,7 @@ flatchat.controller('MessagesCtrl', function ($scope, $interval, $http, $cookies
     $scope.newMessage = "";
     focus();
   }
-  
+
   $interval(function() {
     $http.get('/messages').then(function(res) {
       $scope.messages = res.data.results.reverse();
@@ -63,10 +63,14 @@ flatchat.controller('MessagesCtrl', function ($scope, $interval, $http, $cookies
         m.ts = moment(m.created_at).format('LT');
         m.mine = m.author == $scope.authorName;
         m.color = nameColor(m.author);
+        m.yo = m.text.match(/^ *yo[?!.]? *$/gi);
+        if (m.yo) {
+          console.log(m);
+        }
       });
       $scope.numMessages = res.data.total;
     });
   }, 200);
-  
+
   focus();
 });
