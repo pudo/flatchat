@@ -91,7 +91,7 @@ exports.traverse = function(limit, offset, callback) {
             results.push(fullpath);
           }
         }
-      } else {
+      } else if (fs.lstatSync(fullpath).isDirectory()) {
         traverseInner(fullpath);
       }
     }
