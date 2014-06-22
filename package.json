@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "express": "*",
+    "body-parser": "*",
     "js-yaml": "*",
     "async": "*",
     "underscore": "*"
