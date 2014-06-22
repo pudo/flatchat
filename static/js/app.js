@@ -45,6 +45,10 @@ flatchat.controller('MessagesCtrl', function ($scope, $interval, $http, $cookies
     focus();
   };
 
+  $scope.updateAuthor = function() {
+    $scope.hasAuthor = false;
+  };
+
   $scope.sendMessage = function() {
     var message = {
       author: $scope.authorName,
@@ -64,9 +68,6 @@ flatchat.controller('MessagesCtrl', function ($scope, $interval, $http, $cookies
         m.mine = m.author == $scope.authorName;
         m.color = nameColor(m.author);
         m.yo = m.text.match(/^ *yo[?!.]? *$/gi);
-        if (m.yo) {
-          console.log(m);
-        }
       });
       $scope.numMessages = res.data.total;
     });
