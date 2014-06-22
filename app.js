@@ -19,13 +19,24 @@ app.get('/messages', function(req, res) {
   });
 });
 
-app.post('/messages', function(req, res) {
-  var message = req.body;
-  message.created_at = new Date();
-  messages.create(message, function(id) {
-    message.id = id;
-    res.jsonp(message);
-  });
+app.post('/messages', function(req, res, next) {
+  var message = {
+    author: req.body.author,
+    text: req.body.text,
+    created_at: new Date()
+  };
+  if (!message.author || message.author.length < 3) {
+    res.status(400);
+    res.jsonp({'error': "No 'author' is set!"});
+  } else if (!message.text || message.text.length == 0) {
+    res.status(400);
+    res.jsonp({'error': "No 'text' is set!"});
+  } else {
+    messages.create(message, function(id) {
+      message.id = id;
+      res.jsonp(message);
+    });
+  }
 });
 
 app.listen(3000);
