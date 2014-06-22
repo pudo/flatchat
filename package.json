@@ -1,3 +1,14 @@
 {
-
+  "name": "flatchat",
+  "version": "0.0.1",
+  "main": "app.json",
+  "repository" :
+  { 
+    "type" : "git", 
+    "url" : "git@github.com:pudo/flatchat.git"
+  },
+  "dependencies": {
+    "express": "*",
+    "yamljs": "*"
+  }
 }
